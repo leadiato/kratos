@@ -7,27 +7,29 @@ title: Configuration
 OPEN AN ISSUE IF YOU WOULD LIKE TO MAKE ADJUSTMENTS HERE AND MAINTAINERS WILL HELP YOU LOCATE THE RIGHT
 FILE -->
 
-If file `$HOME/.kratos.yaml` exists, it will be used as a configuration file which supports all
-configuration settings listed below.
+If file `$HOME/.kratos.yaml` exists, it will be used as a configuration file
+which supports all configuration settings listed below.
 
-You can load the config file from another source using the `-c path/to/config.yaml` or `--config path/to/config.yaml`
-flag: `kratos --config path/to/config.yaml`.
+You can load the config file from another source using the
+`-c path/to/config.yaml` or `--config path/to/config.yaml` flag:
+`kratos --config path/to/config.yaml`.
 
-Config files can be formatted as JSON, YAML and TOML. Some configuration values support reloading without server restart.
-All configuration values can be set using environment variables, as documented below.
+Config files can be formatted as JSON, YAML and TOML. Some configuration values
+support reloading without server restart. All configuration values can be set
+using environment variables, as documented below.
 
-To find out more about edge cases like setting string array values through environmental variables head to the
-[Configuring ORY services](https://www.ory.sh/docs/ecosystem/configuring) section.
+To find out more about edge cases like setting string array values through
+environmental variables head to the
+[Configuring ORY services](https://www.ory.sh/docs/ecosystem/configuring)
+section.
 
 ```yaml
 ## ORY Kratos Configuration
 #
 
-
 ## identity ##
 #
 identity:
-  
   ## JSON Schema URL for default identity traits ##
   #
   # Path to the JSON Schema which describes a default identity's traits.
@@ -35,7 +37,7 @@ identity:
   # Examples:
   # - file://path/to/identity.traits.schema.json
   # - https://foo.bar.com/path/to/identity.traits.schema.json
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export IDENTITY_DEFAULT_SCHEMA_URL=<value>
@@ -53,7 +55,7 @@ identity:
   #     url: https://foo.bar.com/path/to/employee.traits.schema.json
   #   - id: employee-v2
   #     url: https://foo.bar.com/path/to/employee.v2.traits.schema.json
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export IDENTITY_SCHEMAS=<value>
@@ -79,7 +81,7 @@ identity:
 # - mysql://user:secret@tcp(mysqld:3306)/database?max_conns=20&max_idle_conns=4
 # - cockroach://user@cockroachdb:26257/database?sslmode=disable&max_conns=20&max_idle_conns=4
 # - sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
-# 
+#
 # Set this value using environment variables on
 # - Linux/macOS:
 #    $ export DSN=<value>
@@ -91,7 +93,6 @@ dsn: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
 ## selfservice ##
 #
 selfservice:
-  
   ## Redirect browsers to set URL per default ##
   #
   # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -99,7 +100,7 @@ selfservice:
   # Examples:
   # - https://my-app.com/dashboard
   # - /dashboard
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export SELFSERVICE_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -116,7 +117,7 @@ selfservice:
   # - - https://app.my-app.com/dashboard
   #   - /dashboard
   #   - https://www.my-app.com/
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export SELFSERVICE_WHITELISTED_RETURN_URLS=<value>
@@ -131,11 +132,9 @@ selfservice:
   ## flows ##
   #
   flows:
-    
     ## settings ##
     #
     settings:
-      
       ## URL of the Settings page. ##
       #
       # URL where the Settings UI is hosted. Check the [reference implementation](https://github.com/ory/kratos-selfservice-ui-node).
@@ -144,7 +143,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/user/settings
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_SETTINGS_UI_URL=<value>
@@ -161,7 +160,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_SETTINGS_LIFESPAN=<value>
@@ -178,7 +177,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_SETTINGS_PRIVILEGED_SESSION_MAX_AGE=<value>
@@ -190,7 +189,6 @@ selfservice:
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -198,7 +196,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_SETTINGS_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -210,7 +208,6 @@ selfservice:
         ## password ##
         #
         password:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -218,7 +215,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_SETTINGS_AFTER_PASSWORD_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -241,7 +238,6 @@ selfservice:
         ## profile ##
         #
         profile:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -249,7 +245,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_SETTINGS_AFTER_PROFILE_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -272,11 +268,9 @@ selfservice:
     ## logout ##
     #
     logout:
-      
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -284,7 +278,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_LOGOUT_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -296,7 +290,6 @@ selfservice:
     ## registration ##
     #
     registration:
-      
       ## Registration UI URL ##
       #
       # URL where the Registration UI is hosted. Check the [reference implementation](https://github.com/ory/kratos-selfservice-ui-node).
@@ -305,7 +298,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/signup
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_REGISTRATION_UI_URL=<value>
@@ -322,7 +315,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_REGISTRATION_LIFESPAN=<value>
@@ -334,7 +327,6 @@ selfservice:
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -342,7 +334,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_REGISTRATION_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -354,7 +346,6 @@ selfservice:
         ## password ##
         #
         password:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -362,7 +353,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_REGISTRATION_AFTER_PASSWORD_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -385,7 +376,6 @@ selfservice:
         ## oidc ##
         #
         oidc:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -393,7 +383,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_REGISTRATION_AFTER_OIDC_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -416,7 +406,6 @@ selfservice:
     ## login ##
     #
     login:
-      
       ## Login UI URL ##
       #
       # URL where the Login UI is hosted. Check the [reference implementation](https://github.com/ory/kratos-selfservice-ui-node).
@@ -425,7 +414,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/login
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_LOGIN_UI_URL=<value>
@@ -442,7 +431,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_LOGIN_LIFESPAN=<value>
@@ -454,7 +443,6 @@ selfservice:
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -462,7 +450,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_LOGIN_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -474,7 +462,6 @@ selfservice:
         ## password ##
         #
         password:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -482,7 +469,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_LOGIN_AFTER_PASSWORD_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -505,7 +492,6 @@ selfservice:
         ## oidc ##
         #
         oidc:
-          
           ## Redirect browsers to set URL per default ##
           #
           # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -513,7 +499,7 @@ selfservice:
           # Examples:
           # - https://my-app.com/dashboard
           # - /dashboard
-          # 
+          #
           # Set this value using environment variables on
           # - Linux/macOS:
           #    $ export SELFSERVICE_FLOWS_LOGIN_AFTER_OIDC_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -536,7 +522,6 @@ selfservice:
     ## Email and Phone Verification and Account Activation Configuration ##
     #
     verification:
-      
       ## Enable Email/Phone Verification ##
       #
       # If set to true will enable [Email and Phone Verification and Account Activation](https://www.ory.sh/kratos/docs/self-service/flows/verify-email-account-activation/).
@@ -559,7 +544,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/verify
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_VERIFICATION_UI_URL=<value>
@@ -571,7 +556,6 @@ selfservice:
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -579,7 +563,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_VERIFICATION_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -598,7 +582,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_VERIFICATION_LIFESPAN=<value>
@@ -610,7 +594,6 @@ selfservice:
     ## Account Recovery Configuration ##
     #
     recovery:
-      
       ## Enable Account Recovery ##
       #
       # If set to true will enable [Account Recovery](https://www.ory.sh/kratos/docs/self-service/flows/password-reset-account-recovery/).
@@ -633,7 +616,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/verify
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_RECOVERY_UI_URL=<value>
@@ -645,7 +628,6 @@ selfservice:
       ## after ##
       #
       after:
-        
         ## Redirect browsers to set URL per default ##
         #
         # ORY Kratos redirects to this URL per default on completion of self-service flows and other browser interaction. Read this [article for more information on browser redirects](https://www.ory.sh/kratos/docs/concepts/browser-redirect-flow-completion).
@@ -653,7 +635,7 @@ selfservice:
         # Examples:
         # - https://my-app.com/dashboard
         # - /dashboard
-        # 
+        #
         # Set this value using environment variables on
         # - Linux/macOS:
         #    $ export SELFSERVICE_FLOWS_RECOVERY_AFTER_DEFAULT_BROWSER_RETURN_URL=<value>
@@ -672,7 +654,7 @@ selfservice:
       # - 1h
       # - 1m
       # - 1s
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_RECOVERY_LIFESPAN=<value>
@@ -684,7 +666,6 @@ selfservice:
     ## error ##
     #
     error:
-      
       ## ORY Kratos Error UI URL ##
       #
       # URL where the ORY Kratos Error UI is hosted. Check the [reference implementation](https://github.com/ory/kratos-selfservice-ui-node).
@@ -693,7 +674,7 @@ selfservice:
       #
       # Examples:
       # - https://my-app.com/kratos-error
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SELFSERVICE_FLOWS_ERROR_UI_URL=<value>
@@ -705,11 +686,9 @@ selfservice:
   ## methods ##
   #
   methods:
-    
     ## profile ##
     #
     profile:
-      
       ## Enables Profile Management Method ##
       #
       # Default value: true
@@ -725,7 +704,6 @@ selfservice:
     ## recovery_token ##
     #
     recovery_token:
-      
       ## Enables Token-based Account Recovery Method ##
       #
       # Default value: true
@@ -741,7 +719,6 @@ selfservice:
     ## password ##
     #
     password:
-      
       ## Enables Username/Email and Password Method ##
       #
       # Default value: true
@@ -757,7 +734,6 @@ selfservice:
     ## oidc ##
     #
     oidc:
-      
       ## Enables OpenID Connect Method ##
       #
       # Default value: false
@@ -773,7 +749,6 @@ selfservice:
       ## config ##
       #
       config:
-        
         ## OpenID Connect and OAuth2 Providers ##
         #
         # A list and configuration of OAuth2 and OpenID Connect providers ORY Kratos should integrate with.
@@ -819,20 +794,18 @@ selfservice:
 # The courier is responsible for sending and delivering messages over email, sms, and other means.
 #
 courier:
-  
   ## SMTP Configuration ##
   #
   # Configures outgoing emails using the SMTP protocol.
   #
   smtp:
-    
     ## SMTP connection string ##
     #
     # This URI will be used to connect to the SMTP server. Use the query parameter to allow (`?skip_ssl_verify=true`) or disallow (`?skip_ssl_verify=false`) self-signed TLS certificates. Please keep in mind that any host other than localhost / 127.0.0.1 must use smtp over TLS (smtps) or the connection will not be possible.
     #
     # Examples:
     # - smtps://foo:bar@my-mailserver:1234/?skip_ssl_verify=false
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export COURIER_SMTP_CONNECTION_URI=<value>
@@ -861,7 +834,7 @@ courier:
   #
   # Examples:
   # - /conf/courier-templates
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export COURIER_TEMPLATE_OVERRIDE_PATH=<value>
@@ -873,18 +846,16 @@ courier:
 ## serve ##
 #
 serve:
-  
   ## admin ##
   #
   admin:
-    
     ## Admin Base URL ##
     #
     # The URL where the admin endpoint is exposed at.
     #
     # Examples:
     # - https://kratos.private-network:4434/
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export SERVE_ADMIN_BASE_URL=<value>
@@ -919,7 +890,7 @@ serve:
     #
     # Examples:
     # - 4434
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export SERVE_ADMIN_PORT=<value>
@@ -931,13 +902,11 @@ serve:
   ## public ##
   #
   public:
-    
     ## cors ##
     #
     # Configures Cross Origin Resource Sharing for public endpoints.
     #
     cors:
-      
       ## enabled ##
       #
       # Sets whether CORS is enabled.
@@ -962,7 +931,7 @@ serve:
       # - - https://example.com
       #   - https://*.example.com
       #   - https://*.foo.example.com
-      # 
+      #
       # Set this value using environment variables on
       # - Linux/macOS:
       #    $ export SERVE_PUBLIC_CORS_ALLOWED_ORIGINS=<value>
@@ -1088,7 +1057,7 @@ serve:
     # Examples:
     # - https://my-app.com/.ory/kratos/public
     # - /.ory/kratos/public/
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export SERVE_PUBLIC_BASE_URL=<value>
@@ -1123,7 +1092,7 @@ serve:
     #
     # Examples:
     # - 4433
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export SERVE_PUBLIC_PORT=<value>
@@ -1135,7 +1104,6 @@ serve:
 ## log ##
 #
 log:
-  
   ## level ##
   #
   # One of:
@@ -1146,7 +1114,7 @@ log:
   # - error
   # - fatal
   # - panic
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export LOG_LEVEL=<value>
@@ -1172,7 +1140,7 @@ log:
   # One of:
   # - json
   # - text
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export LOG_FORMAT=<value>
@@ -1184,7 +1152,6 @@ log:
 ## secrets ##
 #
 secrets:
-  
   ## Default Encryption Signing Secrets ##
   #
   # The first secret in the array is used for singing and encrypting things while all other keys are used to verify and decrypt older things that were signed with that old secret.
@@ -1219,11 +1186,9 @@ secrets:
 ## Hashing Algorithm Configuration ##
 #
 hashers:
-  
   ## Configuration for the Argon2id hasher. ##
   #
   argon2:
-    
     ## memory ##
     #
     # Minimum value: 16384
@@ -1287,7 +1252,6 @@ hashers:
 ## session ##
 #
 session:
-  
   ## Session Lifespan ##
   #
   # Defines how long a session is active. Once that lifespan has been reached, the user needs to sign in again.
@@ -1298,7 +1262,7 @@ session:
   # - 1h
   # - 1m
   # - 1s
-  # 
+  #
   # Set this value using environment variables on
   # - Linux/macOS:
   #    $ export SESSION_LIFESPAN=<value>
@@ -1310,15 +1274,15 @@ session:
   ## cookie ##
   #
   cookie:
-    
     ## Session Cookie Domain ##
     #
     # Sets the session cookie domain. Useful when dealing with subdomains. Use with care!
     #
     domain:
       title: Session Cookie Domain
-      description: Sets the session cookie domain. Useful when dealing with
-        subdomains. Use with care!
+      description:
+        Sets the session cookie domain. Useful when dealing with subdomains. Use
+        with care!
 
     ## Make Session Cookie Persistent ##
     #
@@ -1356,7 +1320,7 @@ session:
     # - Strict
     # - Lax
     # - None
-    # 
+    #
     # Set this value using environment variables on
     # - Linux/macOS:
     #    $ export SESSION_COOKIE_SAME_SITE=<value>
@@ -1374,5 +1338,4 @@ session:
 #    > set VERSION=<value>
 #
 version: v0.580486.0
-
 ```
