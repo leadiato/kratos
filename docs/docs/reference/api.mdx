@@ -427,7 +427,7 @@ Status Code **200**
 |»» value|string|true|none|none|
 |»» via|[RecoveryAddressType](#schemarecoveryaddresstype)|true|none|none|
 |» schema_id|string|true|none|SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.|
-|» schema_url|string|false|none|SchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from.<br/><br/>format: url|
+|» schema_url|string|true|none|SchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from.<br/><br/>format: url|
 |» traits|[Traits](#schematraits)|true|none|none|
 |» verifiable_addresses|[[VerifiableAddress](#schemaverifiableaddress)]|false|none|VerifiableAddresses contains all the addresses that can be verified by the user.|
 |»» id|[UUID](#schemauuid)(uuid4)|true|none|none|
@@ -640,6 +640,7 @@ Learn how identities work in [ORY Kratos' User And Identity Model Documentation]
 |---|---|---|---|
 |201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|A single identity.|[Identity](#schemaidentity)|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|genericError|[genericError](#schemagenericerror)|
+|409|[Conflict](https://tools.ietf.org/html/rfc7231#section-6.5.8)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
@@ -1245,11 +1246,12 @@ Learn how identities work in [ORY Kratos' User And Identity Model Documentation]
 |---|---|---|---|
 |204|[No Content](https://tools.ietf.org/html/rfc7231#section-6.3.5)|Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is
 typically 201.|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|genericError|[genericError](#schemagenericerror)|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|genericError|[genericError](#schemagenericerror)|
 
 ##### Examples
 
-###### 500 response
+###### 404 response
 
 ```json
 {
@@ -3228,6 +3230,7 @@ p JSON.parse(result)
 
 ```
 POST /self-service/login/methods/password?flow=string HTTP/1.1
+Content-Type: application/json
 Accept: application/json
 
 ```
@@ -3246,16 +3249,31 @@ a HTTP 302 redirect to the login UI URL with the flow ID containing the validati
 
 More information can be found at [ORY Kratos User Login and User Registration Documentation](https://www.ory.sh/docs/next/kratos/self-service/flows/user-login-user-registration).
 
+#### Request body
+
+```json
+{
+  "csrf_token": "string",
+  "identifier": "string",
+  "password": "string"
+}
+```
+
+```yaml
+csrf_token: string
+identifier: string
+password: string
+
+```
+
 <a id="complete-login-flow-with-username/email-password-method-parameters"></a>
 
 #### Parameters
 
 |Parameter|In|Type|Required|Description|
 |---|---|---|---|---|
-|password|query|string|false|The user's password.|
-|identifier|query|string|false|Identifier is the email or username of the user trying to log in.|
-|csrf_token|query|string|false|Sending the anti-csrf token is only required for browser login flows.|
 |flow|query|string|true|The Flow ID|
+|body|body|[CompleteSelfServiceLoginFlowWithPasswordMethod](#schemacompleteselfserviceloginflowwithpasswordmethod)|false|none|
 
 #### Responses
 
@@ -3324,7 +3342,7 @@ This operation does not require authentication
 
 ```shell
 curl -X POST /self-service/login/methods/password?flow=string \
-  -H 'Accept: application/json'
+  -H 'Content-Type: application/json' \  -H 'Accept: application/json'
 ```
 
 </TabItem>
@@ -3340,6 +3358,7 @@ import (
 
 func main() {
     headers := map[string][]string{ 
+        "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
 
@@ -3360,13 +3379,18 @@ func main() {
 
 ```javascript
 const fetch = require('node-fetch');
-
+const input = '{
+  "csrf_token": "string",
+  "identifier": "string",
+  "password": "string"
+}';
 const headers = {
-  'Accept': 'application/json'
+  'Content-Type': 'application/json',  'Accept': 'application/json'
 }
 
 fetch('/self-service/login/methods/password?flow=string', {
   method: 'POST',
+  body: input,
   headers
 })
 .then(r => r.json())
@@ -3408,6 +3432,7 @@ System.out.println(response.toString());
 import requests
 
 headers = {
+  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
@@ -3428,6 +3453,7 @@ require 'rest-client'
 require 'json'
 
 headers = {
+  'Content-Type' => 'application/json',
   'Accept' => 'application/json'
 }
 
@@ -8462,6 +8488,29 @@ p JSON.parse(result)
 
 ## Schemas
 
+<a id="tocScompleteselfserviceloginflowwithpasswordmethod"></a>
+
+#### CompleteSelfServiceLoginFlowWithPasswordMethod
+
+<a id="schemacompleteselfserviceloginflowwithpasswordmethod"></a>
+
+```json
+{
+  "csrf_token": "string",
+  "identifier": "string",
+  "password": "string"
+}
+
+```
+
+#### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|csrf_token|string|false|none|Sending the anti-csrf token is only required for browser login flows.|
+|identifier|string|false|none|Identifier is the email or username of the user trying to log in.|
+|password|string|false|none|The user's password.|
+
 <a id="tocScompleteselfservicesettingsflowwithpasswordmethod"></a>
 
 #### CompleteSelfServiceSettingsFlowWithPasswordMethod
@@ -8650,7 +8699,7 @@ p JSON.parse(result)
 |id|[UUID](#schemauuid)|true|none|none|
 |recovery_addresses|[[RecoveryAddress](#schemarecoveryaddress)]|false|none|RecoveryAddresses contains all the addresses that can be used to recover an identity.|
 |schema_id|string|true|none|SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.|
-|schema_url|string|false|none|SchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from.<br/><br/>format: url|
+|schema_url|string|true|none|SchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from.<br/><br/>format: url|
 |traits|[Traits](#schematraits)|true|none|none|
 |verifiable_addresses|[[VerifiableAddress](#schemaverifiableaddress)]|false|none|VerifiableAddresses contains all the addresses that can be verified by the user.|
 
@@ -9650,8 +9699,8 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|[recoveryFlowMethodConfig](#schemarecoveryflowmethodconfig)|false|none|none|
-|method|string|false|none|Method contains the request credentials type.|
+|config|[recoveryFlowMethodConfig](#schemarecoveryflowmethodconfig)|true|none|none|
+|method|string|true|none|Method contains the request credentials type.|
 
 <a id="tocSrecoveryflowmethodconfig"></a>
 
@@ -9932,8 +9981,8 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|[registrationFlowMethodConfig](#schemaregistrationflowmethodconfig)|false|none|none|
-|method|[CredentialsType](#schemacredentialstype)|false|none|and so on.|
+|config|[registrationFlowMethodConfig](#schemaregistrationflowmethodconfig)|true|none|none|
+|method|[CredentialsType](#schemacredentialstype)|true|none|and so on.|
 
 <a id="tocSregistrationflowmethodconfig"></a>
 
@@ -10332,8 +10381,8 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|[FlowMethodConfig](#schemaflowmethodconfig)|false|none|none|
-|method|string|false|none|Method is the name of this flow method.|
+|config|[FlowMethodConfig](#schemaflowmethodconfig)|true|none|none|
+|method|string|true|none|Method is the name of this flow method.|
 
 <a id="tocSsettingsviaapiresponse"></a>
 
@@ -10646,8 +10695,8 @@ p JSON.parse(result)
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|config|[verificationFlowMethodConfig](#schemaverificationflowmethodconfig)|false|none|none|
-|method|string|false|none|Method contains the request credentials type.|
+|config|[verificationFlowMethodConfig](#schemaverificationflowmethodconfig)|true|none|none|
+|method|string|true|none|Method contains the request credentials type.|
 
 <a id="tocSverificationflowmethodconfig"></a>
 
